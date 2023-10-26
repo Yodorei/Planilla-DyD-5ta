@@ -7,12 +7,13 @@ package Vistas;
 
 import Data.*;
 import Entidades.*;
-import java.util.TreeSet;
 import javax.swing.JOptionPane;
+
 
 public class NuevoPJ extends javax.swing.JInternalFrame {
     
-    int[] tiradas = new int[6];
+    Conexion con = new Conexion("jdbc:mariadb://localhost:3306/planilla_dyd_5ta","root","");
+    
     
     public NuevoPJ() {
         initComponents();
@@ -39,18 +40,20 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jpBotones = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jpStats = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jtTirada1 = new javax.swing.JLabel();
+        jsFue = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jsDes = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
-        jtTirada2 = new javax.swing.JLabel();
+        jsCon = new javax.swing.JSpinner();
+        jsInt = new javax.swing.JSpinner();
+        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jtTirada3 = new javax.swing.JLabel();
+        jsSab = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        jsCar = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        jtTirada4 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jtTirada5 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jtTirada6 = new javax.swing.JLabel();
+        jsStatTotal = new javax.swing.JSpinner();
 
         jcbRaza.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
 
@@ -131,100 +134,109 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
         );
 
-        jButton2.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
-        jButton2.setText("Roll");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jsFue.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsFue.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jtTirada1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada1.setText("0");
+        jLabel5.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel5.setText("FUE");
 
-        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jLabel7.setText(" - ");
+        jLabel6.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel6.setText("DES");
 
-        jtTirada2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada2.setText("0");
+        jsDes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsDes.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jLabel9.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jLabel9.setText(" - ");
+        jLabel7.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel7.setText("CON");
 
-        jtTirada3.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada3.setText("0");
+        jsCon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsCon.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jLabel11.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jLabel11.setText(" - ");
+        jsInt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsInt.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jtTirada4.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada4.setText("0");
+        jLabel8.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel8.setText("INT");
 
-        jLabel13.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jLabel13.setText(" - ");
+        jLabel9.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel9.setText("SAB");
 
-        jtTirada5.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada5.setText("0");
+        jsSab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsSab.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jLabel15.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jLabel15.setText(" - ");
+        jLabel10.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel10.setText("CAR");
 
-        jtTirada6.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
-        jtTirada6.setText("0");
+        jsCar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsCar.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+
+        jLabel11.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jLabel11.setText("Stats");
+
+        jsStatTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsStatTotal.setModel(new javax.swing.SpinnerNumberModel(15, null, 15, 1));
+        jsStatTotal.setEnabled(false);
 
         javax.swing.GroupLayout jpStatsLayout = new javax.swing.GroupLayout(jpStats);
         jpStats.setLayout(jpStatsLayout);
         jpStatsLayout.setHorizontalGroup(
             jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpStatsLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jButton2)
-                .addGap(34, 34, 34)
-                .addComponent(jtTirada1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTirada2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(115, 115, 115)
+                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpStatsLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jsFue, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jsDes, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jsCon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8))
+                    .addGroup(jpStatsLayout.createSequentialGroup()
+                        .addGap(254, 254, 254)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jsStatTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jsInt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTirada3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTirada4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTirada5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTirada6)
+                .addGap(18, 18, 18)
+                .addComponent(jsSab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jsCar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpStatsLayout.setVerticalGroup(
             jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpStatsLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
                 .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jtTirada1)
+                    .addComponent(jLabel11)
+                    .addComponent(jsStatTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jsFue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jsDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jtTirada2)
-                        .addComponent(jLabel9)
-                        .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtTirada3)
-                            .addComponent(jLabel11)
-                            .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jtTirada4)
-                                .addComponent(jLabel13)
-                                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jtTirada5)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jtTirada6))))))
-                .addContainerGap(240, Short.MAX_VALUE))
+                    .addComponent(jsCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jsInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jsSab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jsCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,51 +266,34 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int tirada;        
-        
-        for (int i = 0; i < tiradas.length; i++) {
-            do {
-                tirada = rollDice(3, 6);
-            } while (tirada < 10);
-            tiradas[i]=tirada;
-        }
-        
-        jtTirada1.setText(""+tiradas[0]);
-        jtTirada2.setText(""+tiradas[1]);
-        jtTirada3.setText(""+tiradas[2]);
-        jtTirada4.setText(""+tiradas[3]);
-        jtTirada5.setText(""+tiradas[4]);
-        jtTirada6.setText(""+tiradas[5]);
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JComboBox<Raza> jcbClase;
     private javax.swing.JComboBox<Raza> jcbRaza;
     private javax.swing.JPanel jpBotones;
     private javax.swing.JPanel jpInfo;
     private javax.swing.JPanel jpStats;
+    private javax.swing.JSpinner jsCar;
+    private javax.swing.JSpinner jsCon;
+    private javax.swing.JSpinner jsDes;
+    private javax.swing.JSpinner jsFue;
+    private javax.swing.JSpinner jsInt;
+    private javax.swing.JSpinner jsSab;
+    private javax.swing.JSpinner jsStatTotal;
     private javax.swing.JTextField jtJugador;
     private javax.swing.JTextField jtPersonaje;
-    private javax.swing.JLabel jtTirada1;
-    private javax.swing.JLabel jtTirada2;
-    private javax.swing.JLabel jtTirada3;
-    private javax.swing.JLabel jtTirada4;
-    private javax.swing.JLabel jtTirada5;
-    private javax.swing.JLabel jtTirada6;
     // End of variables declaration//GEN-END:variables
 
     public int rollDice(int cantidad, int caras) {
@@ -316,4 +311,6 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
 
         return roll;
     }
+    
+    
 }
