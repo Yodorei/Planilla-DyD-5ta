@@ -134,7 +134,7 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
         );
 
-        jsFue.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsFue.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsFue.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
         jLabel5.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
@@ -143,16 +143,16 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel6.setText("DES");
 
-        jsDes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsDes.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsDes.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
         jLabel7.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel7.setText("CON");
 
-        jsCon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsCon.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsCon.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
-        jsInt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsInt.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsInt.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
         jLabel8.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
@@ -161,13 +161,13 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel9.setText("SAB");
 
-        jsSab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsSab.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsSab.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
         jLabel10.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel10.setText("CAR");
 
-        jsCar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jsCar.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
         jsCar.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
 
         jLabel11.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
@@ -310,6 +310,9 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         }
 
         return roll;
+    }
+    public void limitRoll(){
+    
     }
     
     
