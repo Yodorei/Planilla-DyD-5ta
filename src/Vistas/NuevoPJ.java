@@ -10,13 +10,15 @@ import Entidades.*;
 import javax.swing.JOptionPane;
 
 
+
 public class NuevoPJ extends javax.swing.JInternalFrame {
     
     Conexion con = new Conexion("jdbc:mariadb://localhost:3306/planilla_dyd_5ta","root","");
-    
-    
+    public int statFue,statDes,statCon,statInt,statSab,statCar;
+
     public NuevoPJ() {
         initComponents();
+        cargarStats();
     }
 
     /**
@@ -53,7 +55,7 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jsCar = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        jsStatTotal = new javax.swing.JSpinner();
+        jtStatTotal = new javax.swing.JLabel();
 
         jcbRaza.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
 
@@ -134,8 +136,13 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
         );
 
-        jsFue.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsFue.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsFue.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsFue.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsFueStateChanged(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel5.setText("FUE");
@@ -143,17 +150,32 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel6.setText("DES");
 
-        jsDes.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsDes.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsDes.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsDes.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsDesStateChanged(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel7.setText("CON");
 
-        jsCon.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsCon.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsCon.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsCon.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsConStateChanged(evt);
+            }
+        });
 
-        jsInt.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsInt.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsInt.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsInt.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsIntStateChanged(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel8.setText("INT");
@@ -161,21 +183,35 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel9.setText("SAB");
 
-        jsSab.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsSab.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsSab.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsSab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsSabStateChanged(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel10.setText("CAR");
 
-        jsCar.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        jsCar.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         jsCar.setModel(new javax.swing.SpinnerNumberModel(10, 10, 15, 1));
+        jsCar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsCarStateChanged(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
         jLabel11.setText("Stats");
 
-        jsStatTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jsStatTotal.setModel(new javax.swing.SpinnerNumberModel(15, null, 15, 1));
-        jsStatTotal.setEnabled(false);
+        jtStatTotal.setFont(new java.awt.Font("High Tower Text", 1, 24)); // NOI18N
+        jtStatTotal.setText("15");
+        jtStatTotal.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jtStatTotalPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpStatsLayout = new javax.swing.GroupLayout(jpStats);
         jpStats.setLayout(jpStatsLayout);
@@ -183,47 +219,46 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
             jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpStatsLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jsFue, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jsDes, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpStatsLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jsFue, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jsDes, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jsCon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8))
-                    .addGroup(jpStatsLayout.createSequentialGroup()
-                        .addGap(254, 254, 254)
                         .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(jsStatTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jsInt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jsSab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addComponent(jsCar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jtStatTotal))
+                    .addGroup(jpStatsLayout.createSequentialGroup()
+                        .addComponent(jsCon, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsInt, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsSab, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsCar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpStatsLayout.setVerticalGroup(
             jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpStatsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel11)
-                    .addComponent(jsStatTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtStatTotal))
+                .addGap(42, 42, 42)
+                .addGroup(jpStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel5)
                     .addComponent(jsFue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -266,6 +301,130 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jsFueStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsFueStateChanged
+        
+        int stat = (int) jsFue.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statFue+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statFue++;
+            
+        }else if(stat == statFue-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statFue--;
+        }
+        
+    }//GEN-LAST:event_jsFueStateChanged
+
+    private void jtStatTotalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jtStatTotalPropertyChange
+        lockSpinners();
+    }//GEN-LAST:event_jtStatTotalPropertyChange
+
+    private void jsDesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsDesStateChanged
+                
+        int stat = (int) jsDes.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statDes+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statDes++;
+            
+        }else if(stat == statDes-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statDes--;
+        }
+        
+    }//GEN-LAST:event_jsDesStateChanged
+
+    private void jsConStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsConStateChanged
+                
+        int stat = (int) jsCon.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statCon+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statCon++;
+            
+        }else if(stat == statCon-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statCon--;
+        }
+        
+    }//GEN-LAST:event_jsConStateChanged
+
+    private void jsIntStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsIntStateChanged
+                
+        int stat = (int) jsInt.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statInt+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statInt++;
+            
+        }else if(stat == statInt-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statInt--;
+        }
+        
+    }//GEN-LAST:event_jsIntStateChanged
+
+    private void jsSabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsSabStateChanged
+                
+        int stat = (int) jsSab.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statSab+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statSab++;
+            
+        }else if(stat == statSab-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statSab--;
+        }
+        
+    }//GEN-LAST:event_jsSabStateChanged
+
+    private void jsCarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsCarStateChanged
+                
+        int stat = (int) jsCar.getValue();
+        
+        int statTotal = Integer.parseInt(jtStatTotal.getText());
+
+        
+        if (stat == statCar+1) {
+            
+            jtStatTotal.setText("" + (statTotal-1));
+            statCar++;
+            
+        }else if(stat == statCar-1){
+            
+            jtStatTotal.setText("" + (statTotal+1));
+            statCar--;
+        }
+        
+    }//GEN-LAST:event_jsCarStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -291,11 +450,12 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner jsFue;
     private javax.swing.JSpinner jsInt;
     private javax.swing.JSpinner jsSab;
-    private javax.swing.JSpinner jsStatTotal;
     private javax.swing.JTextField jtJugador;
     private javax.swing.JTextField jtPersonaje;
+    private javax.swing.JLabel jtStatTotal;
     // End of variables declaration//GEN-END:variables
 
+    
     public int rollDice(int cantidad, int caras) {
         int roll = 0;
         int random;
@@ -311,9 +471,36 @@ public class NuevoPJ extends javax.swing.JInternalFrame {
 
         return roll;
     }
-    public void limitRoll(){
     
+    public void lockSpinners(){
+        int statTot = Integer.parseInt(jtStatTotal.getText());
+        
+        if (statTot==0) {
+            jsFue.setEnabled(false);
+            jsCon.setEnabled(false);
+            jsDes.setEnabled(false);
+            jsInt.setEnabled(false);
+            jsCar.setEnabled(false);
+            jsSab.setEnabled(false);
+        }else{
+            jsFue.setEnabled(true);
+            jsCon.setEnabled(true);
+            jsDes.setEnabled(true);
+            jsInt.setEnabled(true);
+            jsCar.setEnabled(true);
+            jsSab.setEnabled(true);
+        }
     }
     
+    public void cargarStats(){
+        statFue = (int) jsFue.getValue();
+        statCon = (int) jsCon.getValue();
+        statDes = (int) jsDes.getValue();
+        statInt = (int) jsInt.getValue();
+        statSab = (int) jsSab.getValue();
+        statCar = (int) jsCar.getValue();
+        
+        
+    }
     
 }
